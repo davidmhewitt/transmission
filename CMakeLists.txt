@@ -291,8 +291,8 @@ if(WIN32)
 else()
     tr_add_external_auto_library(EVENT2 libevent event
         BUILD_IN_SOURCE 1
-        CONFIGURE_COMMAND "<CMAKE_CURRENT_SOURCE_DIR>/autogen.sh"
-                  COMMAND "<CMAKE_CURRENT_SOURCE_DIR>/configure" "--prefix=<INSTALL_DIR>" "--disable-shared")
+        CONFIGURE_COMMAND "<SOURCE_DIR>/autogen.sh"
+                  COMMAND "<SOURCE_DIR>/configure" "--prefix=<INSTALL_DIR>" "--disable-shared")
 endif()
 
 tr_add_external_auto_library(NATPMP libnatpmp natpmp)
