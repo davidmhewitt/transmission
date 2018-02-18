@@ -84,7 +84,7 @@ macro(tr_add_external_auto_library ID DIRNAME LIBNAME)
 
         ExternalProject_Add(
             ${${ID}_UPSTREAM_TARGET}
-            URL "${CMAKE_SOURCE_DIR}/third-party/${DIRNAME}"
+            URL "${CMAKE_CURRENT_SOURCE_DIR}/third-party/${DIRNAME}"
             ${ARGN}
             PREFIX "${${ID}_PREFIX}"
             CMAKE_ARGS

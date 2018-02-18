@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 project(transmission)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 include(CheckIncludeFile)
 include(CheckIncludeFiles)
@@ -56,20 +56,20 @@ else()
     set(TR_STABLE_RELEASE 1)
 endif()
 
-set(TR_VCS_REVISION_FILE "${CMAKE_SOURCE_DIR}/REVISION")
+set(TR_VCS_REVISION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/REVISION")
 
 if(NOT "$ENV{JENKINS_URL}" STREQUAL "" AND NOT "$ENV{GIT_COMMIT}" STREQUAL "")
     set(TR_VCS_REVISION "$ENV{GIT_COMMIT}")
 elseif(NOT "$ENV{TEAMCITY_PROJECT_NAME}" STREQUAL "" AND NOT "$ENV{BUILD_VCS_NUMBER}" STREQUAL "")
     set(TR_VCS_REVISION "$ENV{BUILD_VCS_NUMBER}")
-elseif(IS_DIRECTORY ${CMAKE_SOURCE_DIR}/.git)
+elseif(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/.git)
     find_package(Git)
     if(GIT_FOUND)
         execute_process(
             COMMAND
                 ${GIT_EXECUTABLE} rev-list --max-count=1 HEAD
             WORKING_DIRECTORY
-                ${CMAKE_SOURCE_DIR}
+                ${CMAKE_CURRENT_SOURCE_DIR}
             OUTPUT_VARIABLE
                 TR_VCS_REVISION
             OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -284,15 +284,15 @@ if(ZLIB_FOUND)
     add_definitions(-DHAVE_ZLIB)
 endif()
 
-set(THIRD_PARTY_DIR ${CMAKE_SOURCE_DIR}/third-party)
+set(THIRD_PARTY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third-party)
 
 if(WIN32)
     tr_add_external_auto_library(EVENT2 libevent event)
 else()
     tr_add_external_auto_library(EVENT2 libevent event
         BUILD_IN_SOURCE 1
-        CONFIGURE_COMMAND "<SOURCE_DIR>/autogen.sh"
-                  COMMAND "<SOURCE_DIR>/configure" "--prefix=<INSTALL_DIR>" "--disable-shared")
+        CONFIGURE_COMMAND "<CURRENT_SOURCE_DIR>/autogen.sh"
+                  COMMAND "<CURRENT_SOURCE_DIR>/configure" "--prefix=<INSTALL_DIR>" "--disable-shared")
 endif()
 
 tr_add_external_auto_library(NATPMP libnatpmp natpmp)
